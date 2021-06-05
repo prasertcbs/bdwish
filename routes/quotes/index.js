@@ -1,8 +1,8 @@
 'use strict';
 
 const fetch = require('node-fetch');
-const q = require('../../models/quotes_data.js');
-let quotes = {};
+const q = require('../../models/wishes_data.js');
+let wishes = {};
 
 /**
  * read JSON data from url
@@ -45,16 +45,16 @@ function sampleBetween(min, max, k = 3) {
 
 /**
  * random a quote
- * @param {string} quotes
+ * @param {string} wishes
  * @param {string} relation
  * @returns {string} quote
  */
-function randomQuote(quotes, relation = 'friend') {
-  return quotes[relation][randBetween(0, quotes[relation].length - 1)];
+function randomWish(wishes, relation = 'friend') {
+  return wishes[relation][randBetween(0, wishes[relation].length - 1)];
 }
 
-async function readQuotes() {
-  quotes = q.quotes; // read from local (data/quotes_data.js)
+async function readWishes() {
+  wishes = q.wishes; // read from local (data/quotes_data.js)
   
   // adapted from: https://github.com/itriplek/birthday-quotes-with-relationships/blob/master/birthday-quotes-with-relationship-formatted.json
   // quotes = await readJson('https://raw.githubusercontent.com/prasertcbs/basic-dataset/master/birthday_quotes.json');
@@ -67,26 +67,26 @@ async function readQuotes() {
   console.log(new Date());
 }
 
-readQuotes();
+readWishes();
 
 module.exports = async function (fastify, opts) {
   fastify.get('/', async function (request, reply) {
     // return 'random birthday quote';
     // return quotes
-    let relations = Object.keys(quotes);
+    let relations = Object.keys(wishes);
     let relation = relations[randBetween(0, relations.length - 1)];
-    return { relation: relation, quote: randomQuote(quotes, relation) };
+    return { relation: relation, quote: randomWish(wishes, relation) };
   });
 
   fastify.get('/relations', async function (request, reply) {
-    return Object.keys(quotes).sort();
+    return Object.keys(wishes).sort();
   });
 
   fastify.get('/:relation', async function (request, reply) {
     console.log(request.params.relation);
     console.log(request.query.limit);
     let relation = request.params.relation;
-    let len = quotes[relation].length;
+    let len = wishes[relation].length;
     let qs = [];
     let limit = 1;
     if (request.query.limit) {
@@ -95,7 +95,7 @@ module.exports = async function (fastify, opts) {
     let ns = sampleBetween(0, len - 1, limit);
     console.log(ns);
     ns.forEach((idx) => {
-      let q = quotes[relation][idx];
+      let q = wishes[relation][idx];
       qs.push(q);
     });
     return qs;

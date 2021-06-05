@@ -2,8 +2,8 @@
 'use strict';
 const { default: fastify } = require('fastify');
 const fetch = require('node-fetch');
-const q = require('../models/quotes_data.js');
-let quotes = {};
+const q = require('../models/wishes_data.js');
+let wishes = {};
 
 /**
  * read JSON data from url
@@ -44,13 +44,13 @@ function sampleBetween(min, max, k = 3) {
   return Array.from(results);
 }
 
-function sampleQuotesFromRelation(relation, limit) {
-  let lenRelations = relationQuotes(relation).length;
+function sampleWishesFromRelation(relation, limit) {
+  let lenRelations = relationWishes(relation).length;
   let qs = [];
   let ns = sampleBetween(0, lenRelations - 1, limit);
   console.log(ns);
   ns.forEach((idx) => {
-    let q = quoteRelation(relation, idx);
+    let q = wishRelation(relation, idx);
     qs.push(q);
   });
   return qs;
@@ -67,8 +67,8 @@ function randomRelation() {
  * @param {number} idx
  * @returns
  */
-function quoteRelation(relation, idx) {
-  return quotes[relation][idx];
+function wishRelation(relation, idx) {
+  return wishes[relation][idx];
 }
 
 /**
@@ -77,20 +77,20 @@ function quoteRelation(relation, idx) {
  * @param {string} relation
  * @returns {string} quote
  */
-function randomQuote(relation = 'friend') {
-  return quotes[relation][randBetween(0, quotes[relation].length - 1)];
+function randomWish(relation = 'friend') {
+  return wishes[relation][randBetween(0, wishes[relation].length - 1)];
 }
 
 function getRelations() {
-  return Object.keys(quotes);
+  return Object.keys(wishes);
 }
 
-function relationQuotes(relation) {
-  return quotes[relation];
+function relationWishes(relation) {
+  return wishes[relation];
 }
 
-async function readQuotes() {
-  quotes = q.quotes; // read from local (data/quotes_data.js)
+async function readWishes() {
+  wishes = q.wishes; // read from local (data/wishes_data.js)
 
   // adapted from: https://github.com/itriplek/birthday-quotes-with-relationships/blob/master/birthday-quotes-with-relationship-formatted.json
   // quotes = await readJson('https://raw.githubusercontent.com/prasertcbs/basic-dataset/master/birthday_quotes.json');
@@ -103,11 +103,11 @@ async function readQuotes() {
   console.log(new Date());
 }
 
-readQuotes();
+readWishes();
 
 module.exports = {
   randomRelation,
-  randomQuote,
+  randomWish,
   getRelations,
-  sampleQuotesFromRelation,
+  sampleWishesFromRelation,
 };

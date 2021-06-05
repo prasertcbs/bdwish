@@ -1,12 +1,12 @@
-const quoteCtrl = require('../../controllers/quote2.js');
+const wishCtrl = require('../../controllers/wishes.js');
 module.exports = async function (fastify, opts) {
   fastify.get('/', async function (request, reply) {
-    let relation = quoteCtrl.randomRelation(); // relations[quoteCtrl.randBetween(0, relations.length - 1)];
-    return { relation: relation, quote: quoteCtrl.randomQuote(relation) };
+    let relation = wishCtrl.randomRelation();
+    return { relation: relation, wish: wishCtrl.randomWish(relation) };
   });
 
   fastify.get('/relations', async function (request, reply) {
-    return quoteCtrl.getRelations().sort();
+    return wishCtrl.getRelations().sort();
   });
 
   fastify.get('/:relation', async function (request, reply) {
@@ -18,6 +18,6 @@ module.exports = async function (fastify, opts) {
     } else {
       limit = 1;
     }
-    return quoteCtrl.sampleQuotesFromRelation(relation, limit);
+    return wishCtrl.sampleWishesFromRelation(relation, limit);
   });
 };

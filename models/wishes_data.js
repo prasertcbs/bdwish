@@ -1,5 +1,5 @@
 // adapted from: https://github.com/itriplek/birthday-quotes-with-relationships/blob/master/birthday-quotes-with-relationship-formatted.json
-const quotes = {
+const wishes = {
   grandmother: [
     'I\u2019m sure you are tired counting the years of your age. May these years be endless and full of happiness!',
     'My sweet Grandma, I wish you to be always happy and healthy as today! Happy birthday my beloved old woman!',
@@ -3707,4 +3707,4 @@ const quotes = {
     'There are so many times in life where I have needed you mom and every single time you have been there. I hope that your day is full of big smiles and raucous laughter. You deserve all the happiness in the world. Happy birthday Mom!',
   ],
 };
- module.exports = {quotes}
+ module.exports = {wishes: wishes}
