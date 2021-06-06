@@ -5,21 +5,13 @@ const AutoLoad = require('fastify-autoload');
 
 module.exports = async function (fastify, opts) {
   // Place here your custom code!
+
+  // register fastify-static to serve static page (place static route in routes/root.js)
   fastify.register(require('fastify-static'), {
     root: path.join(__dirname, 'public'),
     prefix: '/public/', // optional: default '/'
   });
-  fastify.get('/home', function (req, reply) {
-    return reply.sendFile('index.html'); // serving path.join(__dirname, 'public', 'index.html') directly
-  });
-  fastify.get('/about', function (req, reply) {
-    return reply.sendFile('about.html'); 
-  });
-  
-  fastify.get('/plain', function (req, reply) {
-    return reply.sendFile('plain.html');
-  });
-  
+
   // Do not touch the following lines
   // This loads all plugins defined in plugins
   // those should be support plugins that are reused
