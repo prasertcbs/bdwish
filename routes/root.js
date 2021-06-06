@@ -7,7 +7,7 @@ module.exports = async function (fastify, opts) {
   });
 
   fastify.get('/home', function (req, reply) {
-    return reply.sendFile('index.html'); // serving path.join(__dirname, 'public', 'index.html') directly
+    return reply.sendFile('home.html'); // serving path.join(__dirname, 'public', 'index.html') directly
   });
   fastify.get('/about', function (req, reply) {
     return reply.sendFile('about.html');
