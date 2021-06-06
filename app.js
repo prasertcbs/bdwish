@@ -9,8 +9,9 @@ module.exports = async function (fastify, opts) {
   // register fastify-static to serve static page (place static route in routes/root.js)
   fastify.register(require('fastify-static'), {
     root: path.join(__dirname, 'public'),
-    prefix: '/public/', // optional: default '/'
+    prefix: '/', // optional: default '/'
   });
+
 
   // Do not touch the following lines
   // This loads all plugins defined in plugins
